@@ -64,7 +64,37 @@ footer{
 </head>
 
 <body>
+function tampilkan(kategoriCari){
+  container.innerHTML = "";
 
+  // filter HARUS SAMA PERSIS
+  const hasil = data.filter(p =>
+    !p.sold &&
+    p.kategori.toLowerCase() === kategoriCari
+  );
+
+  if(!hasil.length){
+    container.innerHTML = `
+      <p style="grid-column:1/-1;text-align:center">
+        Ketersediaan stok sedang kosong,<br>
+        hubungi <b>AryanzUtama</b> untuk info lebih lanjut
+      </p>`;
+    return;
+  }
+
+  // urutkan harga TERMAHAL ke TERMURAH
+  hasil.sort((a,b)=>b.harga - a.harga);
+
+  hasil.forEach(p=>{
+    const c = document.createElement("div");
+    c.className = "card";
+    c.innerHTML = `<img src="${p.foto}">`;
+    c.onclick = ()=>window.open(
+      "https://wa.me/6289679520905?text=Saya%20tertarik%20produk%20kategori%20"+p.kategori
+    );
+    container.appendChild(c);
+  });
+}
 <header>
   <h2>AryanzUtama Store</h2>
   <input id="search" placeholder="Cari kategori (ahli, junior...)">
