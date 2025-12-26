@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AryanzUtama Store</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f2f8ff;
+}
+header{
+  background:#4da3ff;
+  padding:20px;
+  text-align:center;
+  color:#fff;
+}
+header input{
+  width:90%;
+  max-width:400px;
+  padding:12px;
+  border-radius:25px;
+  border:none;
+  outline:none;
+}
+.container{
+  padding:15px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:15px;
+}
+.card{
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+  cursor:pointer;
+}
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+.empty{
+  text-align:center;
+  color:#555;
+  padding:40px 20px;
+}
+footer{
+  text-align:center;
+  padding:20px;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>AryanzUtama Store</h2>
+  <input id="search" placeholder="Cari kategori (ahli, junior...)">
+</header>
+
+<div class="container" id="produk"></div>
+
+<footer>Powered by AryanzUtama</footer>
+
+<script>
+const WA_LINK = "https://wa.me/6289679520905";
+let semuaProduk = [];
+
+fetch("produk.json")
+.then(res => res.json())
+.then(data => {
+  semuaProduk = data;
+  tampilkan("");
+});
+
+const container = document.getElementById("produk");
+const search = document.getElementById("search");
+
+function tampilkan(keyword){
+  container.innerHTML = "";
+
+  const hasil = semuaProduk
+    .filter(p => !p.sold)
+    .filter(p => p.kategori.toLowerCase().includes(keyword))
+    .sort((a,b) => b.harga - a.harga);
+
+  if(hasil.length === 0){
+    container.innerHTML = `
+      <div class="empty">
+        Ketersediaan stok sedang kosong,<br>
+        hubungin AryanzUtama untuk info lebih lanjut
+      </div>`;
+    return;
+  }
+
+  hasil.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `<img src="${p.foto}">`;
+    card.onclick = () => window.open(WA_LINK);
+    container.appendChild(card);
+  });
+}
+
+search.addEventListener("input", e => {
+  tampilkan(e.target.value.toLowerCase());
+});
+</script>
+
+</body>
+</html>
