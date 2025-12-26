@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AryanzUtama Store</title>
 
+<!-- ICON ASLI -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
 <style>
 body{
   margin:0;
@@ -32,31 +35,6 @@ body{
 .banner img{
   max-width:220px;
 }
-
-/* ===== PLATFORM ===== */
-.platform{
-  margin-top:18px;
-  display:flex;
-  justify-content:center;
-  gap:18px;
-}
-
-.platform a{
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  color:#fff;
-  text-decoration:none;
-}
-
-.wa{background:#25D366}
-.ig{background:#E1306C}
-.tt{background:#000}
-.ch{background:#128C7E}
 
 /* ===== SEARCH ===== */
 header{
@@ -101,6 +79,11 @@ header{
   border-radius:16px;
   overflow:hidden;
   box-shadow:0 6px 18px rgba(0,0,0,.1);
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
 }
 
 .card img{
@@ -110,13 +93,12 @@ header{
   cursor:pointer;
 }
 
-/* ===== EMPTY MESSAGE ===== */
+/* ===== EMPTY ===== */
 .empty{
   grid-column:1/-1;
   text-align:center;
-  font-size:15px;
+  padding:35px;
   color:#555;
-  padding:35px 10px;
 }
 
 /* ===== MODAL ===== */
@@ -130,28 +112,37 @@ header{
   z-index:99;
 }
 
+.modal.show{
+  display:flex;
+}
+
 .modal-content{
-  background:#fff;
-  border-radius:16px;
+  background:linear-gradient(180deg,#fafdff,#eaf4ff);
+  border-radius:18px;
   width:90%;
   max-width:420px;
-  padding:20px;
+  padding:22px;
   text-align:center;
+  animation:zoom .35s ease;
+}
+
+@keyframes zoom{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
 }
 
 .modal-content img{
   width:100%;
   border-radius:12px;
+  margin-bottom:10px;
 }
 
 .pay-box{
-  margin:15px 0;
+  background:#fff;
+  border-radius:12px;
+  padding:12px;
   font-size:14px;
-}
-
-.pay-box b{
-  display:block;
-  margin-top:8px;
+  margin:10px 0;
 }
 
 .btn{
@@ -164,30 +155,47 @@ header{
   font-weight:bold;
 }
 
+.wa{background:#25D366}
+.ig{background:#E1306C}
+
 .close{
   margin-top:12px;
-  color:#888;
-  cursor:pointer;
   font-size:13px;
+  color:#777;
+  cursor:pointer;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  text-align:center;
+  padding:30px 10px 20px;
+}
+
+.platform-bottom{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  margin-bottom:12px;
+}
+
+.platform-bottom a{
+  font-size:28px;
+  color:#555;
+}
+
+.powered{
+  font-size:13px;
+  color:#888;
 }
 </style>
 </head>
 
 <body>
 
-<!-- BANNER -->
 <div class="banner">
   <img src="logo.png" alt="AryanzUtama">
-
-  <div class="platform">
-    <a class="wa" href="https://wa.me/6289679520905" target="_blank">📱</a>
-    <a class="ig" href="https://www.instagram.com/aryanz_stok?igsh=dWdzMTk2Nmt5ZDk1" target="_blank">📸</a>
-    <a class="tt" href="https://www.tiktok.com/@uryanzutama?_r=1&_t=ZS-92YCnwDTv0x" target="_blank">🎵</a>
-    <a class="ch" href="https://whatsapp.com/channel/0029VbB5xTP3GJOzlxzCl20S" target="_blank">💬</a>
-  </div>
 </div>
 
-<!-- SEARCH -->
 <header>
   <div class="search-box">
     <input id="search" placeholder="Cari kategori (ahli, senior)">
@@ -195,7 +203,6 @@ header{
   </div>
 </header>
 
-<!-- PRODUK -->
 <div class="container" id="produk"></div>
 
 <!-- MODAL -->
@@ -206,80 +213,87 @@ header{
     <img src="https://res.cloudinary.com/dtdodhqqi/image/upload/v1766779896/IMG-20251222-WA0068_thougk.jpg">
 
     <div class="pay-box">
-      <b>DANA</b>
+      <b>DANA</b><br>
       089688037479 A/N NIKOMANG
     </div>
 
-    <p style="font-size:13px;color:#666">
+    <p style="font-size:13px;color:#555">
       WAJIB kirim bukti transfer ke admin
     </p>
 
-    <a id="waBtn" class="btn wa" target="_blank">Chat WhatsApp</a>
-    <a id="igBtn" class="btn ig" target="_blank">Chat Instagram</a>
+    <a id="waBtn" class="btn wa" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+
+    <a id="igBtn" class="btn ig" target="_blank">
+      <i class="fa-brands fa-instagram"></i> Instagram
+    </a>
 
     <div class="close" onclick="tutupModal()">Tutup</div>
   </div>
 </div>
 
+<!-- FOOTER -->
+<div class="footer">
+  <div class="platform-bottom">
+    <a href="https://wa.me/6289679520905" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="https://www.instagram.com/aryanz_stok" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@uryanzutama" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://whatsapp.com/channel/0029VbB5xTP3GJOzlxzCl20S" target="_blank"><i class="fa-solid fa-bullhorn"></i></a>
+  </div>
+  <div class="powered">PoweredByAryanzUtama</div>
+</div>
+
 <script>
-const container = document.getElementById("produk");
-const modal = document.getElementById("modal");
-const waBtn = document.getElementById("waBtn");
-const igBtn = document.getElementById("igBtn");
-const search = document.getElementById("search");
-const btnCari = document.getElementById("btnCari");
+const container=document.getElementById("produk");
+const modal=document.getElementById("modal");
+const waBtn=document.getElementById("waBtn");
+const igBtn=document.getElementById("igBtn");
+const search=document.getElementById("search");
+const btnCari=document.getElementById("btnCari");
 
-let data = [];
+let data=[];
 
-/* LOAD DATA */
 fetch("produk.json")
 .then(r=>r.json())
 .then(j=>{
-  data = j;
+  data=j;
   tampilkan(data.filter(p=>!p.sold));
 });
 
-/* TAMPILKAN PRODUK / PESAN KOSONG */
 function tampilkan(list){
-  container.innerHTML = "";
-
-  if(list.length === 0){
-    container.innerHTML = `
+  container.innerHTML="";
+  if(!list.length){
+    container.innerHTML=`
       <div class="empty">
         stok kategori yang kamu cari sedang kosong<br>
         <b>hubungin AryanzUtama untuk melanjutkan</b>
-      </div>
-    `;
+      </div>`;
     return;
   }
 
   list.forEach(p=>{
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `<img src="${p.foto}">`;
-    card.onclick = ()=>bukaModal(p.kategori);
-    container.appendChild(card);
+    const c=document.createElement("div");
+    c.className="card";
+    c.innerHTML=`<img src="${p.foto}">`;
+    c.onclick=()=>bukaModal(p.kategori);
+    container.appendChild(c);
   });
 }
 
-/* SEARCH */
-btnCari.onclick = ()=>{
-  const v = search.value.trim().toLowerCase();
-  const hasil = data.filter(p=>!p.sold && p.kategori.toLowerCase() === v);
-  tampilkan(hasil);
+btnCari.onclick=()=>{
+  const v=search.value.trim().toLowerCase();
+  tampilkan(data.filter(p=>!p.sold && p.kategori.toLowerCase()===v));
 };
 
-/* MODAL */
-function bukaModal(kat){
-  modal.style.display="flex";
-  waBtn.href =
-    `https://wa.me/6289679520905?text=Halo%20Admin,%20saya%20sudah%20transfer%20kategori%20${kat}`;
-  igBtn.href =
-    "https://www.instagram.com/aryanz_stok";
+function bukaModal(k){
+  modal.classList.add("show");
+  waBtn.href=`https://wa.me/6289679520905?text=Halo%20Admin,%20saya%20sudah%20transfer%20kategori%20${k}`;
+  igBtn.href="https://www.instagram.com/aryanz_stok";
 }
 
 function tutupModal(){
-  modal.style.display="none";
+  modal.classList.remove("show");
 }
 </script>
 
