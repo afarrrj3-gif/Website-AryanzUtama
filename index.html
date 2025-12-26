@@ -12,11 +12,18 @@ body{
   background:#f2f8ff;
 }
 header{
-  background:#4da3ff;
-  padding:20px;
-  text-align:center;
-  color:#fff;
-}
+<header style="display:flex;gap:10px;align-items:center;">
+  <input id="search" placeholder="Cari kategori (ahli, junior)">
+  <button id="btnCari" style="
+    border:none;
+    background:#4da3ff;
+    color:white;
+    padding:10px 14px;
+    border-radius:50%;
+    font-size:18px;
+    cursor:pointer
+  ">🔍</button>
+</header>
 header input{
   width:90%;
   max-width:400px;
@@ -107,9 +114,10 @@ function tampilkan(keyword){
   });
 }
 
-search.addEventListener("input", e => {
-  tampilkan(e.target.value.toLowerCase());
-});
+search.addEventListener("input", t =>  
+  {
+  tampilk.n(e.ta.get.v.lue.toLowerCas;
+));
 </script>
 
 </body>
