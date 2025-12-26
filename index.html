@@ -95,19 +95,51 @@ header button{
   transform:translateY(-4px)
 }
 
-/* FOTO 1080 x 1350 (4:5) */
 .card img{
   width:100%;
   aspect-ratio:4/5;
   object-fit:cover
 }
 
+/* ===== FLOATING WHATSAPP ===== */
+.wa-float{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  background:#25D366;
+  color:#fff;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  text-decoration:none;
+  box-shadow:0 6px 18px rgba(0,0,0,.3);
+  z-index:99
+}
+
 /* ===== FOOTER ===== */
 footer{
   text-align:center;
-  padding:25px 15px;
+  padding:30px 15px;
   color:#777;
   font-size:13px
+}
+
+.footer-links{
+  margin:15px 0;
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap
+}
+
+.footer-links a{
+  text-decoration:none;
+  color:#4da3ff;
+  font-weight:bold
 }
 </style>
 </head>
@@ -129,7 +161,23 @@ footer{
 <!-- PRODUK -->
 <div class="container" id="produk"></div>
 
-<footer>Powered by AryanzUtama</footer>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/aryanz_stok?igsh=dWdzMTk2Nmt5ZDk1" target="_blank">Instagram</a>
+    <a href="https://www.tiktok.com/@uryanzutama?_r=1&_t=ZS-92YCnwDTv0x" target="_blank">TikTok</a>
+    <a href="https://whatsapp.com/channel/0029VbB5xTP3GJOzlxzCl20S" target="_blank">Saluran</a>
+  </div>
+  Powered by AryanzUtama
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float"
+   href="https://wa.me/6289679520905"
+   target="_blank"
+   aria-label="WhatsApp">
+  💬
+</a>
 
 <script>
 const container = document.getElementById("produk");
@@ -146,37 +194,30 @@ fetch("produk.json")
     tampilkanAwal();
   });
 
-/* ===== TAMPIL AWAL (READY & TERMAHAL) ===== */
+/* ===== TAMPIL AWAL ===== */
 function tampilkanAwal(){
   container.innerHTML = "";
-
-  const ready = data
+  data
     .filter(p => !p.sold)
-    .sort((a,b)=>b.harga - a.harga);
-
-  ready.forEach(p => buatCard(p));
+    .sort((a,b)=>b.harga - a.harga)
+    .forEach(p => buatCard(p));
 }
 
-/* ===== SEARCH KATEGORI ===== */
+/* ===== SEARCH ===== */
 function tampilkanKategori(kategori){
   container.innerHTML = "";
-
-  const hasil = data
-    .filter(p =>
-      !p.sold &&
-      p.kategori.toLowerCase() === kategori
-    )
-    .sort((a,b)=>b.harga - a.harga);
+  const hasil = data.filter(p =>
+    !p.sold && p.kategori.toLowerCase() === kategori
+  ).sort((a,b)=>b.harga - a.harga);
 
   if(!hasil.length){
     container.innerHTML = `
       <p style="grid-column:1/-1;text-align:center">
-        Stok kategori <b>${kategori}</b> kosong,<br>
-        hubungi <b>AryanzUtama</b>
+        Stok kategori <b>${kategori}</b> kosong<br>
+        Hubungi AryanzUtama
       </p>`;
     return;
   }
-
   hasil.forEach(p => buatCard(p));
 }
 
@@ -192,7 +233,6 @@ function buatCard(p){
   container.appendChild(card);
 }
 
-/* ===== EVENT 🔍 ===== */
 btnCari.onclick = () => {
   const val = search.value.trim().toLowerCase();
   if(val) tampilkanKategori(val);
