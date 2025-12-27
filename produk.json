@@ -2,8 +2,9 @@
   {
     "id": 1,
     "kategori": "ahli",
-    "harga": 55000,
-    "foto": "https://res.cloudinary.com/dtdodhqqi/image/upload/v1766759909/Proyek_Baru_277_5D74C43_ac0fzh.png",
-    "sold": true
+    "foto": "https://res.cloudinary.com/dtdodhqqi/image/upload/v1766834126/Proyek_Baru_277_C6F8D8C_exfgik.png",
+    "harga": 60000,
+    "sold": false,
+    "soldAt": null
   }
 ]
