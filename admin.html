@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel - AryanzUtama</title>
+<style>
+body{
+  font-family:Arial;
+  background:#f2f7ff;
+  padding:20px;
+}
+h2{text-align:center}
+.card{
+  background:#fff;
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+img{
+  width:100%;
+  max-width:200px;
+  border-radius:10px;
+}
+button{
+  margin-top:10px;
+  padding:10px 15px;
+  border:none;
+  border-radius:20px;
+  background:#ff3b3b;
+  color:#fff;
+  cursor:pointer;
+}
+.sold{
+  opacity:.5;
+}
+</style>
+</head>
+
+<body>
+<h2>ADMIN PANEL</h2>
+<div id="list"></div>
+
+<script>
+let data = [];
+
+fetch("produk.json")
+.then(r=>r.json())
+.then(j=>{
+  data=j;
+  tampil();
+});
+
+function tampil(){
+  const list=document.getElementById("list");
+  list.innerHTML="";
+  data.forEach(p=>{
+    const div=document.createElement("div");
+    div.className="card"+(p.sold?" sold":"");
+    div.innerHTML=`
+      <img src="${p.foto}">
+      <p><b>Kategori:</b> ${p.kategori}</p>
+      <p><b>Harga:</b> ${p.harga}</p>
+      <p>Status: ${p.sold?"SOLD":"READY"}</p>
+      ${!p.sold?`<button onclick="sold(${p.id})">Tandai SOLD</button>`:""}
+    `;
+    list.appendChild(div);
+  });
+}
+
+function sold(id){
+  const p=data.find(x=>x.id===id);
+  p.sold=true;
+  p.soldAt=Date.now();
+  alert("Produk ditandai SOLD!\nUpload ulang produk.json");
+}
+</script>
+</body>
+</html>
